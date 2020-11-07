@@ -3,10 +3,23 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {createStore} from 'redux';
+import allReducers from './reducers/combine';
+import {Provider} from 'react-redux';
+
+//we cannot pass in two reducers createStore(reducer1, reducer2)
+//so we need to use combineReducer to combine the two reducers together
+const store = createStore(
+  allReducers, 
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    {/*by passing the state from this top component, the entire app now has access to the state*/}
+    <Provider store={store}>
+       <App />
+    </Provider> 
   </React.StrictMode>,
   document.getElementById('root')
 );

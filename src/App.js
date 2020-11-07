@@ -1,23 +1,19 @@
-import logo from './logo.svg';
+
 import './App.css';
+import {useSelector, useDispatch} from 'react-redux';
+import {increment, decrement} from './actions/plusminus';
+import AuthorizationRelatedStuff from './authorization';
 
 function App() {
+  //use useSelector to pull states out from redux store.
+  const counter = useSelector(state => state.counter);
+  const dispatch = useDispatch();
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      Counter: {counter}
+      <button onClick={() => dispatch(increment(5))}>+</button>
+      <button onClick={() => dispatch(decrement())}>-</button>
+      <AuthorizationRelatedStuff/>
     </div>
   );
 }
